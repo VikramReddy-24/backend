@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'nseApis'
+    'nseApis',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -49,9 +50,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'nse_backend.urls'
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_WHITELIST = (
+#        'http://localhost:3000',
+# )
+
 
 TEMPLATES = [
     {

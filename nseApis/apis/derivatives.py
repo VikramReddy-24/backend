@@ -7,14 +7,21 @@ from .commonFunctions import bucket_name,env
 from boto3.dynamodb.conditions import Key, Attr
 import traceback
 
+config={
+    'Index Options':'OPT',
+    'Index Futures':'FUT'
+}
+
 
 class derivativesApi(APIView):
     def post(self,request):
         try:
             input=request.data
+            print("input data",input)
             tableName=f"Derivatives_{env}"
-            primaryKey=f"{input['indexName']}_{input['instrumentType']}_{input['expiryDate']}_{input['strikePrice']}"
+            primaryKey=f"{input['indexName']}_{config[input['instrumentName']]}_{input['expiryDate']}_{input['strikePrice']}"
             dynamodb = boto3.resource('dynamodb')
+            print(primaryKey)
             table = dynamodb.Table(tableName)
             response = table.query(KeyConditionExpression=Key('identifier').eq(primaryKey))
             items = response['Items']
